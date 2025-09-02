@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
-import MainLayout from '@/components/Layouts/MainLayout.vue';
-import AuthLayout from '@/components/Layouts/AuthLayout.vue';
-import LoginPage from '@/views/Auth/LoginPage.vue';
-import HomePage from '@/views/Home/HomePage.vue';
+import { Blank, Default } from '@/components/layouts';
+import LoginPage from '@/views/auth/LoginPage.vue';
+import HomePage from '@/views/home/HomePage.vue';
 
 export const routers: RouteRecordRaw[] = [
   {
     path: '/',
-    component: MainLayout,
+    component: Default,
     meta: {
       name: 'Home',
     },
@@ -23,11 +22,11 @@ export const routers: RouteRecordRaw[] = [
 
 const authRouters = [
   {
-    path: '/auth',
-    component: AuthLayout,
+    path: '/',
+    component: Blank,
     children: [
       {
-        path: '/auth/login',
+        path: '/login',
         name: 'Login',
         component: LoginPage,
       },

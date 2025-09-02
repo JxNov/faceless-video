@@ -24,6 +24,7 @@ export default defineConfigWithVueTs(
     rules: {
       '@typescript-eslint/ban-ts-comment': 'off',
       'vue/multi-word-component-names': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   }
 );

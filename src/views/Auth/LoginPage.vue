@@ -1,71 +1,39 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import type { TUsers } from '@/types/user.types';
-
-const auth = useAuthStore();
-
-const formState = reactive({
-  username: '',
-  password: '',
-});
-
-const onFinish = async (values: TUsers) => {
-  if (values.username === '') {
-    auth.error = 'Username không được để trống!';
-    return;
-  }
-
-  if (values.password === '') {
-    auth.error = 'Password không được để trống!';
-    return;
-  }
-
-  await auth.login({ ...values });
-};
+import { RouterLink } from 'vue-router';
+import { GalleryVerticalEnd } from 'lucide-vue-next';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import AuthSignIn from '@/components/auth/SignIn.vue';
 </script>
 
 <template>
-  <div class="w-full max-w-sm p-6 mx-auto bg-white rounded shadow border border-gray-200">
-    <h1 class="text-2xl font-bold text-center">Login</h1>
+  <div class="flex flex-col items-center justify-center gap-6 bg-muted p-6 min-h-svh md:p-10">
+    <div class="max-w-sm w-full flex flex-col gap-6">
+      <RouterLink to="#" class="flex items-center self-center gap-2 font-medium">
+        <div
+          class="h-6 w-6 flex items-center justify-center rounded-md bg-primary text-primary-foreground"
+        >
+          <GalleryVerticalEnd class="size-4" />
+        </div>
+        Acme Inc.
+      </RouterLink>
+      <div class="flex flex-col gap-6">
+        <Card>
+          <CardHeader class="text-center">
+            <CardTitle class="text-xl"> Welcome back </CardTitle>
+            <CardDescription> Login with your Apple or Google account </CardDescription>
+          </CardHeader>
 
-    <div v-if="auth.error" class="text-center mt-4 text-red-500">
-      {{ auth.error }}
+          <CardContent>
+            <AuthSignIn />
+          </CardContent>
+        </Card>
+        <div
+          class="text-center text-balance text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
+        >
+          By clicking continue, you agree to our <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Policy</a>.
+        </div>
+      </div>
     </div>
-
-    <form class="mt-4" @submit.prevent="onFinish(formState)">
-      <div class="mb-4">
-        <label for="username" class="block mb-2">Username</label>
-        <input
-          type="username"
-          id="username"
-          class="w-full p-2 border border-gray-300 rounded"
-          :class="{ 'opacity-50 cursor-not-allowed': auth.loading }"
-          v-model="formState.username"
-          :disabled="auth.loading"
-        />
-      </div>
-
-      <div class="mb-4">
-        <label for="password" class="block mb-2">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="w-full p-2 border border-gray-300 rounded"
-          :class="{ 'opacity-50 cursor-not-allowed': auth.loading }"
-          v-model="formState.password"
-          :disabled="auth.loading"
-        />
-      </div>
-
-      <button
-        type="submit"
-        class="w-full p-2 bg-blue-500 text-white rounded"
-        :class="auth.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'"
-        :disabled="auth.loading"
-      >
-        Login
-      </button>
-    </form>
   </div>
 </template>
