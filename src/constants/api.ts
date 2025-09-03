@@ -12,3 +12,11 @@ export const GENERATE_API = {
   HEYGEN_GENERATE_ARTICLE_ENHANCED: '/heygen/generate-article-enhanced',
   HEYGEN_GENERATE_VIDEO: '/heygen/generate-video',
 };
+
+export const VIDEO_API = {
+  HEYGEN_MY_VIDEOS: '/heygen/my-videos',
+};
+
+export const PAYMENT_API = {
+  PAYMENT_PACKAGES: '/api/payment/packages',
+};

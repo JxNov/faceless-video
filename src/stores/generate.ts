@@ -48,6 +48,61 @@ export const useGenerateStore = defineStore('generate', () => {
     }
   };
 
+  const heygenGetHeadline = async (params: { sourceType: string }) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await GenerateServices.heygenGetHeadline(params);
+      return response.data;
+    } catch (err: any) {
+      error.value = err.message || 'Failed to get headline';
+      return null;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const heygenGenerateArticleEnhanced = async (params: {
+    keyword_id: number;
+    min_words?: number;
+    max_words?: number;
+  }) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await GenerateServices.heygenGenerateArticleEnhanced({
+        keyword_id: params.keyword_id,
+        min_words: params.min_words || 250,
+        max_words: params.max_words || 300,
+      });
+
+      return response.data;
+    } catch (err: any) {
+      error.value = err.message || 'Failed to generate article';
+      return null;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const heygenGenerateVideo = async (params: {
+    article_id: number;
+    avatar_id: string;
+    voice_id: string;
+  }) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await GenerateServices.heygenGenerateVideo(params);
+      return response.data;
+    } catch (err: any) {
+      error.value = err.message || 'Failed to generate video';
+      return null;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     loading,
     error,
@@ -57,5 +112,8 @@ export const useGenerateStore = defineStore('generate', () => {
     fetchHeygenSources,
     fetchHeygenAvatars,
     fetchHeygenVoices,
+    heygenGetHeadline,
+    heygenGenerateArticleEnhanced,
+    heygenGenerateVideo,
   };
 });

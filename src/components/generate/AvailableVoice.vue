@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useGenerateStore } from '@/stores/generate';
 import {
   Select,
@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 
+defineProps<{ disabled?: boolean }>();
+
 const modelValue = defineModel<string>();
 const generateStore = useGenerateStore();
 
@@ -20,7 +22,7 @@ const playingVoiceId = ref<string | null>(null);
 const isPlaying = ref(false);
 
 const previewVoice = (voiceId: string) => {
-  const voice = generateStore.heygenVoices.voices.find(v => v.id === voiceId);
+  const voice = generateStore.heygenVoices.voices.find((v: { id: string }) => v.id === voiceId);
   if (!voice?.previewUrl) return;
 
   if (audio && playingVoiceId.value === voiceId) {
@@ -60,6 +62,11 @@ const previewVoice = (voiceId: string) => {
   audio.play().catch(err => console.error('Error playing audio:', err));
 };
 
+const previewingVoiceEmpty = (voiceId: string) => {
+  return !generateStore.heygenVoices.voices.find((v: { id: string }) => v.id === voiceId)
+    ?.previewUrl;
+};
+
 onMounted(async () => {
   await generateStore.fetchHeygenVoices();
 });
@@ -67,7 +74,7 @@ onMounted(async () => {
 
 <template>
   <div class="flex items-center gap-4">
-    <Select v-model="modelValue">
+    <Select v-model="modelValue" :disabled="disabled">
       <SelectTrigger>
         <SelectValue placeholder="Voice" />
       </SelectTrigger>
@@ -86,7 +93,11 @@ onMounted(async () => {
       </SelectContent>
     </Select>
 
-    <Button v-if="modelValue" @click="previewVoice(modelValue)" :disabled="!modelValue">
+    <Button
+      v-if="modelValue && !previewingVoiceEmpty(modelValue)"
+      @click="previewVoice(modelValue)"
+      :disabled="!modelValue"
+    >
       {{ isPlaying && playingVoiceId === modelValue ? 'Pause' : 'Play' }} Voice
     </Button>
   </div>

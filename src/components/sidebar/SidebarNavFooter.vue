@@ -18,6 +18,15 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuthStore } from '@/stores/auth';
+import { ref } from 'vue';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import Payment from '@/components/Payment.vue';
 
 defineProps<{
   user: {
@@ -30,6 +39,8 @@ defineProps<{
 const authStore = useAuthStore();
 
 const { isMobile, setOpenMobile } = useSidebar();
+
+const showModalPlan = ref(false);
 
 function handleLogout() {
   authStore.logout();
@@ -95,7 +106,7 @@ function handleLogout() {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem @click="showModalPlan = true">
               <Sparkles />
               Upgrade to Pro
             </DropdownMenuItem>
@@ -122,6 +133,17 @@ function handleLogout() {
       </DropdownMenu>
     </SidebarMenuItem>
   </SidebarMenu>
-</template>
 
-<style scoped></style>
+  <Dialog class="!w-full" v-model:open="showModalPlan">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Plan</DialogTitle>
+        <DialogDescription class="text-xs text-muted-foreground">
+          Choose the plan that best fits your needs.
+        </DialogDescription>
+      </DialogHeader>
+
+      <Payment />
+    </DialogContent>
+  </Dialog>
+</template>
