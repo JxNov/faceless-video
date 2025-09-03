@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 import AuthServices from '@/services/auth';
 import { ROUTES } from '@/constants/routers';
-import type { TUsers } from '@/types/user.types';
+import { toast } from 'vue-sonner';
 
 type User = {
   balance: number;
@@ -18,8 +18,11 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
   const loading = ref<boolean>(false);
   const error = ref<string | null>(null);
+  const isAuthenticated = ref<boolean>(!!localStorage.getItem('accessToken'));
+  const accessToken = ref<string | null>(localStorage.getItem('accessToken'));
+  const refreshToken = ref<string | null>(localStorage.getItem('refreshToken'));
 
-  const login = async (payload: TUsers) => {
+  const login = async (payload: { usernameOrEmail: string; password: string }) => {
     loading.value = true;
     error.value = null;
 
@@ -28,23 +31,40 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (response.data.success) {
         user.value = response.data.user;
+
+        localStorage.setItem('accessToken', response.data.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.data.refreshToken);
+
+        accessToken.value = response.data.data.accessToken;
+        refreshToken.value = response.data.data.refreshToken;
+        isAuthenticated.value = true;
+
         router.push(ROUTES.HOME);
+        toast.success(response.data.message || 'Đăng nhập thành công!');
       }
-    } catch {
-      error.value = 'Đăng nhập thất bại!';
+    } catch (err: any) {
+      error.value = err.response.data.error.message;
+      toast.error(err.response.data.error.message || 'Đăng nhập thất bại!');
     } finally {
       loading.value = false;
     }
   };
 
   const logout = () => {
+    user.value = null;
+    isAuthenticated.value = false;
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     router.push(ROUTES.AUTH_LOGIN);
-    // call api logout
   };
 
   return {
     loading,
     error,
+    user,
+    isAuthenticated,
+    accessToken,
+    refreshToken,
     login,
     logout,
   };

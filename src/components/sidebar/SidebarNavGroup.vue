@@ -40,7 +40,7 @@ const openCollapsible = ref(false);
       <SidebarMenuItem>
         <CollapsibleTrigger as-child>
           <SidebarMenuButton :tooltip="item.title" :size="size">
-            <Icon :name="item.icon || ''" mode="svg" />
+            <component :is="item.icon" />
             <span>{{ item.title }}</span>
             <span
               v-if="item.new"

@@ -7,6 +7,7 @@ const apiConfig = axios.create({
   baseURL: `${VITE_APP_API_URL}`,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('accessToken') || ''}`,
   },
   withCredentials: true,
 });

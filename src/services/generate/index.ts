@@ -1,23 +1,22 @@
 import { GENERATE_API } from '@/constants/api';
-import type { ValueOptions } from '@/types/common.types';
 import { apiServices } from '@/services/api';
 
 const GenerateServices = {
-  getHeadline: (options?: ValueOptions) => {
-    return apiServices.get(GENERATE_API.GET_HEADLINE, options?.params);
-  },
+  heygenSources: () => apiServices.get(GENERATE_API.HEYGEN_SOURCES),
+  heygenAvatars: () => apiServices.get(GENERATE_API.HEYGEN_AVATARS),
+  heygenVoices: () => apiServices.get(GENERATE_API.HEYGEN_VOICES),
 
-  generateArticle: (options?: ValueOptions) => {
-    return apiServices.post(GENERATE_API.GENERATE_ARTICLE, options?.params);
-  },
+  heygenGetHeadline: (params: { sourceType: string }) =>
+    apiServices.post(GENERATE_API.HEYGEN_GET_HEADLINE, { params }),
 
-  generateVideos: (options?: ValueOptions) => {
-    return apiServices.post(GENERATE_API.GENERATE_VIDEOS, options?.params);
-  },
+  heygenGenerateArticleEnhanced: (params: {
+    keyword_id: number;
+    min_words: number;
+    max_words: number;
+  }) => apiServices.post(GENERATE_API.HEYGEN_GENERATE_ARTICLE_ENHANCED, { params }),
 
-  mergeVideos: (options?: ValueOptions) => {
-    return apiServices.post(GENERATE_API.MERGE_VIDEOS, options?.params);
-  },
+  heygenGenerateVideo: (params: { article_id: number; avatar_id: string; voice_id: string }) =>
+    apiServices.post(GENERATE_API.HEYGEN_GENERATE_VIDEO, { params }),
 };
 
 export default GenerateServices;

@@ -11,21 +11,20 @@ const props = defineProps<{
   disabled?: boolean;
   componentField?: ComponentFieldBindingObject<any>;
   autocomplete?: string;
-  modelValue?: string;
   placeholder?: string;
 }>();
 
-const showModal = ref(props?.modelValue);
+const modelValue = defineModel<string>();
 const showPassword = ref(false);
 </script>
 
 <template>
   <div class="relative">
     <Input
-      v-model="showModal"
+      v-model="modelValue"
       :type="showPassword ? 'text' : 'password'"
       :class="cn('pr-10', props?.class)"
-      :placeholder="props?.placeholder ? props.placeholder : 'Enter your password'"
+      :placeholder="props?.placeholder ?? 'Enter your password'"
       :disabled="props?.disabled"
       :autocomplete="props?.autocomplete"
       v-bind="props?.componentField"

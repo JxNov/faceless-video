@@ -2,19 +2,22 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { Blank, Default } from '@/components/layouts';
 import LoginPage from '@/views/auth/LoginPage.vue';
 import HomePage from '@/views/home/HomePage.vue';
+import GeneratePage from '@/views/generate/GeneratePage.vue';
 
 export const routers: RouteRecordRaw[] = [
   {
     path: '/',
     component: Default,
-    meta: {
-      name: 'Home',
-    },
     children: [
       {
         path: '',
         name: 'Home',
         component: HomePage,
+      },
+      {
+        path: '/generate',
+        name: 'Generate',
+        component: GeneratePage,
       },
     ],
   },

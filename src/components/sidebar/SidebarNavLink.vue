@@ -27,7 +27,7 @@ const { setOpenMobile } = useSidebar();
     <SidebarMenuItem>
       <SidebarMenuButton as-child :tooltip="item.title" :size="size">
         <RouterLink :to="item.link" @click="setOpenMobile(false)">
-          <Icon :name="item.icon || ''" mode="svg" />
+          <component :is="item.icon" />
           <span>{{ item.title }}</span>
           <span
             v-if="item.new"

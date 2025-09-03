@@ -1,8 +1,8 @@
 export const ROUTES = {
   HOME: '/',
-  AUTH_LOGIN: '/auth/login',
-  AUTH_LOGOUT: '/auth/logout',
-  AUTH_REGISTER: '/auth/register',
+  AUTH_LOGIN: '/login',
+  AUTH_LOGOUT: '/logout',
+  AUTH_REGISTER: '/register',
   USER: '/user',
 };
 

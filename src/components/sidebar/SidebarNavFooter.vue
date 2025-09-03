@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, useRouter } from 'vue-router';
+import { RouterLink } from 'vue-router';
 import { ChevronsUpDown, Sparkles, Settings, LogOut } from 'lucide-vue-next';
 import {
   useSidebar,
@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useAuthStore } from '@/stores/auth';
 
 defineProps<{
   user: {
@@ -26,12 +27,12 @@ defineProps<{
   };
 }>();
 
-const router = useRouter();
+const authStore = useAuthStore();
 
 const { isMobile, setOpenMobile } = useSidebar();
 
 function handleLogout() {
-  router.push('/login');
+  authStore.logout();
 }
 </script>
 
