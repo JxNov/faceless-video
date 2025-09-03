@@ -20,7 +20,7 @@ onMounted(() => {
 
 <template>
   <div class="mt-10 grid grid-cols-1 md:grid-cols-2">
-    <Card class="w-[350px]" v-for="payment in paymentStore.payments" :key="payment.id">
+    <Card v-for="payment in paymentStore.payments" :key="payment.id">
       <CardHeader>
         <CardTitle>{{ payment.name }}</CardTitle>
         <CardDescription>{{ payment.description }}</CardDescription>

@@ -134,7 +134,7 @@ function handleLogout() {
     </SidebarMenuItem>
   </SidebarMenu>
 
-  <Dialog class="!w-full" v-model:open="showModalPlan">
+  <Dialog v-model:open="showModalPlan">
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Plan</DialogTitle>
