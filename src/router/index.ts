@@ -3,6 +3,7 @@ import { Blank, Default } from '@/components/layouts';
 import LoginPage from '@/views/auth/LoginPage.vue';
 import HomePage from '@/views/home/HomePage.vue';
 import GeneratePage from '@/views/generate/GeneratePage.vue';
+import CronJobPage from '@/views/cron/CronJobPage.vue';
 
 export const routers: RouteRecordRaw[] = [
   {
@@ -18,6 +19,11 @@ export const routers: RouteRecordRaw[] = [
         path: '/generate',
         name: 'Generate',
         component: GeneratePage,
+      },
+      {
+        path: '/cron-job',
+        name: 'CronJob',
+        component: CronJobPage,
       },
     ],
   },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useGenerateStore } from '@/stores/generate';
 import { Button } from '@/components/ui/button';
 import AvailableSource from '@/components/generate/AvailableSource.vue';

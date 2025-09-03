@@ -21,3 +21,7 @@ export const PAYMENT_API = {
   PAYMENT_PACKAGES: '/api/payment/packages',
   PAYMENT_CREATE_PAYMENT: '/api/payment/create-payment',
 };
+
+export const CRONJOB_API = {
+  CRONJOB_TRIGGER: '/api/cron/trigger',
+};
