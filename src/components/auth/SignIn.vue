@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PasswordInput from '@/components/auth/PasswordInput.vue';
 
-const route = useRouter();
+const router = useRouter();
 
 const email = ref('demo@gmail.com');
 const password = ref('password');
@@ -19,7 +19,7 @@ function onSubmit() {
   isLoading.value = true;
 
   setTimeout(() => {
-    if (email.value === 'demo@gmail.com' && password.value === 'password') route.push('/');
+    if (email.value === 'demo@gmail.com' && password.value === 'password') router.push('/');
 
     isLoading.value = false;
   }, 3000);
