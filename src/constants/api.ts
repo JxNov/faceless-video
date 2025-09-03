@@ -19,4 +19,5 @@ export const VIDEO_API = {
 
 export const PAYMENT_API = {
   PAYMENT_PACKAGES: '/api/payment/packages',
+  PAYMENT_CREATE_PAYMENT: '/api/payment/create-payment',
 };

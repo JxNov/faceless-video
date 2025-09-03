@@ -20,10 +20,25 @@ export const usePaymentStore = defineStore('payment', () => {
     }
   };
 
+  const createPayment = async (packageId: number) => {
+    loading.value = true;
+    error.value = null;
+    try {
+      const response = await PaymentServices.paymentCreatePayment({ packageId });
+      return response.data;
+    } catch (err: any) {
+      error.value = err.message || 'Failed to create payment';
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     loading,
     error,
     payments,
     fetchPayments,
+    createPayment,
   };
 });
