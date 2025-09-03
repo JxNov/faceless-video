@@ -19,14 +19,14 @@ function resolveNavItemComponent(item: NavLink | NavGroup | NavSectionTitle): an
   return LayoutSidebarNavLink;
 }
 
+const userStorage = JSON.parse(localStorage.getItem('user') || '{}');
+
 const user: {
   name: string;
   email: string;
-  avatar: string;
 } = {
-  name: 'Dian Pratama',
-  email: 'dianpratama2@gmail.com',
-  avatar: '/avatars/avatartion.png',
+  name: userStorage.username || 'Guest',
+  email: userStorage.email || '',
 };
 
 const sidebar = ref({
