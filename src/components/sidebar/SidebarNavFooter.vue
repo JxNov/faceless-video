@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
-import { ChevronsUpDown, Sparkles, Settings, LogOut } from 'lucide-vue-next';
+import { ChevronsUpDown, Sparkles, LogOut, User2 } from 'lucide-vue-next';
 import {
   useSidebar,
   SidebarMenu,
@@ -27,19 +26,22 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import Payment from '@/components/Payment.vue';
+import Profile from '@/components/Profile.vue';
 
 defineProps<{
   user: {
     name: string;
     email: string;
+    avatar: string;
   };
 }>();
 
 const authStore = useAuthStore();
 
-const { isMobile, setOpenMobile } = useSidebar();
+const { isMobile } = useSidebar();
 
 const showModalPlan = ref(false);
+const showModalProfile = ref(false);
 
 function handleLogout() {
   authStore.logout();
@@ -51,10 +53,8 @@ function handleLogout() {
     <SidebarMenuItem>
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
-          <SidebarMenuButton
-            size="lg"
-            class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-          >
+          <SidebarMenuButton size="lg"
+            class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
             <Avatar class="h-8 w-8 rounded-lg">
               <AvatarImage :src="user.avatar" :alt="user.name" />
               <AvatarFallback class="rounded-lg">
@@ -76,11 +76,8 @@ function handleLogout() {
           </SidebarMenuButton>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent
-          class="min-w-56 w-[--radix-dropdown-menu-trigger-width] rounded-lg"
-          :side="isMobile ? 'bottom' : 'right'"
-          align="end"
-        >
+        <DropdownMenuContent class="min-w-56 w-[--radix-dropdown-menu-trigger-width] rounded-lg"
+          :side="isMobile ? 'bottom' : 'right'" align="end">
           <DropdownMenuLabel class="p-0 font-normal">
             <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar class="h-8 w-8 rounded-lg">
@@ -114,11 +111,9 @@ function handleLogout() {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem as-child>
-              <RouterLink to="/settings" @click="setOpenMobile(false)">
-                <Settings />
-                Settings
-              </RouterLink>
+            <DropdownMenuItem @click="showModalProfile = true">
+              <User2 />
+              Profile
             </DropdownMenuItem>
           </DropdownMenuGroup>
 
@@ -143,6 +138,19 @@ function handleLogout() {
       </DialogHeader>
 
       <Payment />
+    </DialogContent>
+  </Dialog>
+
+  <Dialog v-model:open="showModalProfile">
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Profile</DialogTitle>
+        <DialogDescription class="text-xs text-muted-foreground">
+          View your profile information.
+        </DialogDescription>
+      </DialogHeader>
+
+      <Profile />
     </DialogContent>
   </Dialog>
 </template>

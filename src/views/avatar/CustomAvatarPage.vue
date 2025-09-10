@@ -56,7 +56,7 @@ onMounted(async () => {
 
 <template>
   <Card class="p-6">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center gap-4">
       <h1 class="text-2xl font-bold">My Custom Avatars</h1>
 
       <Button variant="outline" @click="showModalUpload = true">Upload</Button>
@@ -69,7 +69,7 @@ onMounted(async () => {
         </CardHeader>
 
         <CardContent>
-          <img :src="avatar.heygen_avatar_id" :alt="avatar.avatar_name" />
+          <img :src="avatar.preview_url" :alt="avatar.avatar_name" />
         </CardContent>
       </Card>
     </div>

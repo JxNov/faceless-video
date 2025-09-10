@@ -24,6 +24,7 @@ const userStorage = JSON.parse(localStorage.getItem('user') || '{}');
 const user = {
   name: userStorage.username || 'Guest',
   email: userStorage.email || '',
+  avatar: userStorage.avatar || '',
 };
 
 const sidebar = ref({

@@ -11,6 +11,8 @@ export const GENERATE_API = {
   HEYGEN_GET_HEADLINE: '/heygen/get-headline',
   HEYGEN_GENERATE_ARTICLE_ENHANCED: '/heygen/generate-article-enhanced',
   HEYGEN_GENERATE_VIDEO: '/heygen/generate-video',
+
+  HEYGEN_GENERATE_VIDEO_CUSTOM: '/heygen/generate-video-custom',
 };
 
 export const VIDEO_API = {
