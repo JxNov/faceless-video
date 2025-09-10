@@ -1,56 +1,30 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import BaseBreadcrumbCustom from '@/components/base/BreadcrumbCustom.vue';
+import { useAppStore } from '@/stores/app';
 
-const route = useRoute();
+const store = useAppStore();
 
-function setLinks() {
-  if (route.fullPath === '/') {
+const links = computed(() => {
+  if (!store.activeId || store.activeId === 'home') {
     return [{ title: 'Home', href: '/' }];
   }
 
-  const segments = route.fullPath.split('/').filter(item => item !== '');
+  const title = store.activeId
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 
-  const breadcrumbs = segments.map((item, index) => {
-    const str = item.replace(/-/g, ' ');
-    const title = str
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-
-    return {
-      title,
-      href: `/${segments.slice(0, index + 1).join('/')}`,
-    };
-  });
-
-  return [{ title: 'Home', href: '/' }, ...breadcrumbs];
-}
-
-const links = ref<
-  {
-    title: string;
-    href: string;
-  }[]
->(setLinks());
-
-watch(
-  () => route.fullPath,
-  val => {
-    if (val) {
-      links.value = setLinks();
-    }
-  }
-);
+  return [
+    { title, href: `#${store.activeId}` }
+  ];
+});
 </script>
 
 <template>
-  <header
-    class="sticky top-0 z-10 h-[53px] flex items-center gap-4 border-b bg-background px-4 md:px-6"
-  >
+  <header class="sticky top-0 z-10 h-[53px] flex items-center gap-4 border-b bg-background px-4 md:px-6">
     <div class="w-full flex items-center gap-4">
       <SidebarTrigger />
       <Separator orientation="vertical" class="!h-4" />

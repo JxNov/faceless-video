@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { RouterLink } from 'vue-router';
 import { useVideoStore } from '@/stores/video';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
@@ -32,24 +31,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <Card class="p-6 gap-4">
     <h1 class="text-2xl font-bold">Welcome to Faceless Video</h1>
 
-    <p class="mt-2 text-muted-foreground">
+    <p class="text-muted-foreground">
       Create stunning videos with AI in minutes. No design skills needed.
     </p>
 
-    <div class="mt-6 flex space-x-4">
-      <RouterLink to="/generate">
-        <Button> Get Started </Button>
-      </RouterLink>
-
-      <RouterLink to="/about">
-        <Button variant="outline"> Learn More </Button>
-      </RouterLink>
-    </div>
-
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <Card class="w-[350px]" v-for="video in videoStore.heygenVideos.videos" :key="video.id">
         <CardHeader>
           <CardDescription>{{ video.status }}</CardDescription>
@@ -58,13 +47,8 @@ onMounted(async () => {
         <CardContent>
           <p class="line-clamp-5">{{ video.textContent }}</p>
 
-          <video
-            v-if="video.videoPath"
-            :src="video.videoPath + '?fm=mp4'"
-            controls
-            crossorigin="anonymous"
-            class="w-full mt-2 rounded"
-          ></video>
+          <video v-if="video.videoPath" :src="video.videoPath + '?fm=mp4'" controls crossorigin="anonymous"
+            class="w-full mt-2 rounded"></video>
         </CardContent>
 
         <CardFooter class="flex justify-between px-6 pb-6">
@@ -72,5 +56,5 @@ onMounted(async () => {
         </CardFooter>
       </Card>
     </div>
-  </div>
+  </Card>
 </template>

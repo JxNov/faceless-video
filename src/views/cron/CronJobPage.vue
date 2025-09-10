@@ -13,6 +13,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { TimeFieldInput, TimeFieldRoot } from 'reka-ui';
 import CronJobServices from '@/services/cron';
+import { Card } from '@/components/ui/card';
 
 const name = ref<string>('');
 const sourceType = ref<string>('');
@@ -71,7 +72,7 @@ const createJob = () => {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <Card class="space-y-4 p-6">
     <h2 class="text-2xl font-bold mb-1">Cron Job</h2>
     <p class="mb-2 text-gray-600">Manually trigger cron jobs to generate videos.</p>
 
@@ -80,15 +81,11 @@ const createJob = () => {
     <div class="flex items-center space-x-2">
       <Popover>
         <PopoverTrigger as-child>
-          <Button
-            variant="outline"
-            :class="
-              cn(
-                'w-[280px] justify-start text-left font-normal',
-                !dateValue && 'text-muted-foreground'
-              )
-            "
-          >
+          <Button variant="outline" :class="cn(
+            'w-[280px] justify-start text-left font-normal',
+            !dateValue && 'text-muted-foreground'
+          )
+            ">
             <CalendarIcon class="mr-2 h-4 w-4" />
             {{ dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : 'Pick a date' }}
           </Button>
@@ -98,21 +95,14 @@ const createJob = () => {
         </PopoverContent>
       </Popover>
 
-      <TimeFieldRoot
-        v-model="timeValue"
-        v-slot="{ segments }"
-        :hour-cycle="24"
-        class="w-14 flex select-none bg-white items-center rounded-lg shadow-sm text-center text-green10 border p-1 data-[invalid]:border-red-500"
-      >
+      <TimeFieldRoot v-model="timeValue" v-slot="{ segments }" :hour-cycle="24"
+        class="w-14 flex select-none bg-white items-center rounded-lg shadow-sm text-center text-green10 border p-1 data-[invalid]:border-red-500">
         <template v-for="item in segments" :key="item.part">
           <TimeFieldInput v-if="item.part === 'literal'" :part="item.part">
             {{ item.value }}
           </TimeFieldInput>
-          <TimeFieldInput
-            v-else
-            :part="item.part"
-            class="rounded p-0.5 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9"
-          >
+          <TimeFieldInput v-else :part="item.part"
+            class="rounded p-0.5 focus:outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9">
             {{ item.value }}
           </TimeFieldInput>
         </template>
@@ -128,5 +118,5 @@ const createJob = () => {
         Start Cron Job
       </Button>
     </div>
-  </div>
+  </Card>
 </template>

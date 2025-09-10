@@ -8,22 +8,22 @@ export const navMenu: NavMenu[] = [
       {
         title: 'Home',
         icon: Home,
-        link: '/',
+        link: 'home',
       },
       {
         title: 'Generate',
         icon: PlusIcon,
-        link: '/generate',
+        link: 'generate',
       },
       {
         title: 'Cron Job',
         icon: CalendarClock,
-        link: '/cron-job',
+        link: 'cron-job',
       },
       {
         title: 'Custom Avatar',
         icon: Image,
-        link: '/custom-avatar',
+        link: 'custom-avatar',
       },
     ],
   },

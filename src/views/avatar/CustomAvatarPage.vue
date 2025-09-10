@@ -55,50 +55,53 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <h1 class="text-2xl font-bold">My Custom Avatars</h1>
+  <Card class="p-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-bold">My Custom Avatars</h1>
 
-    <Button variant="outline" @click="showModalUpload = true">Upload</Button>
-  </div>
+      <Button variant="outline" @click="showModalUpload = true">Upload</Button>
+    </div>
 
-  <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-    <Card class="w-[350px]" v-for="avatar in avatarCustom?.data.custom_avatars" :key="avatar.id">
-      <CardHeader>
-        <CardTitle>{{ avatar.avatar_name }}</CardTitle>
-      </CardHeader>
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <Card class="w-[350px]" v-for="avatar in avatarCustom?.data.custom_avatars" :key="avatar.id">
+        <CardHeader>
+          <CardTitle>{{ avatar.avatar_name }}</CardTitle>
+        </CardHeader>
 
-      <CardContent>
-        <img :src="avatar.heygen_avatar_id" :alt="avatar.avatar_name" />
-      </CardContent>
-    </Card>
-  </div>
+        <CardContent>
+          <img :src="avatar.heygen_avatar_id" :alt="avatar.avatar_name" />
+        </CardContent>
+      </Card>
+    </div>
 
-  <Dialog v-model:open="showModalUpload">
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Upload avatar</DialogTitle>
-        <DialogDescription class="text-xs text-muted-foreground">
-          To upload a custom avatar.
-        </DialogDescription>
-      </DialogHeader>
+    <Dialog v-model:open="showModalUpload">
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Upload avatar</DialogTitle>
+          <DialogDescription class="text-xs text-muted-foreground">
+            To upload a custom avatar.
+          </DialogDescription>
+        </DialogHeader>
 
-      <form @submit.prevent="handleUpload" enctype="multipart/form-data">
-        <div class="mb-4">
-          <Label for="avatar_name" class="block mb-2 font-medium">Avatar Name</Label>
-          <Input type="text" id="avatar_name" v-model="avatarName" required />
-        </div>
+        <form @submit.prevent="handleUpload" enctype="multipart/form-data">
+          <div class="mb-4">
+            <Label for="avatar_name" class="block mb-2 font-medium">Avatar Name</Label>
+            <Input type="text" id="avatar_name" v-model="avatarName" required :disabled="userStore.loading" />
+          </div>
 
-        <div class="mb-4">
-          <Label for="avatar_file" class="block mb-2 font-medium">Avatar File</Label>
-          <input type="file" id="avatar_file" accept="image/*" class="w-full" @change="handleChange" required />
-        </div>
+          <div class="mb-4">
+            <Label for="avatar_file" class="block mb-2 font-medium">Avatar File</Label>
+            <Input type="file" id="avatar_file" accept="image/*" class="w-full" @change="handleChange" required
+              :disabled="userStore.loading" />
+          </div>
 
-        <div class="flex justify-end">
-          <Button type="submit">Upload</Button>
-        </div>
-      </form>
-    </DialogContent>
-  </Dialog>
+          <div class="flex justify-end">
+            <Button type="submit" :disabled="userStore.loading">Upload</Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  </Card>
 </template>
 
 <style scoped></style>

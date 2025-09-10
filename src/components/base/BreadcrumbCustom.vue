@@ -1,47 +1,18 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
-import { ChevronRight } from 'lucide-vue-next';
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+import type { PropType } from 'vue';
 
-interface Links {
-  title: string;
-  href: string;
-}
-
-defineProps<{
-  links: Links[];
-}>();
+defineProps({
+  links: {
+    type: Array as PropType<{ title: string; href: string }[]>,
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <Breadcrumb>
-    <BreadcrumbList>
-      <template v-for="(link, index) in links" :key="index">
-        <BreadcrumbItem>
-          <BreadcrumbLink v-if="index !== links.length - 1" as-child>
-            <RouterLink :to="link.href">
-              {{ link.title }}
-            </RouterLink>
-          </BreadcrumbLink>
-
-          <BreadcrumbPage v-else>
-            {{ link.title }}
-          </BreadcrumbPage>
-        </BreadcrumbItem>
-
-        <BreadcrumbSeparator v-if="index < links.length - 1">
-          <slot name="separator">
-            <ChevronRight class="size-4" aria-hidden="true" />
-          </slot>
-        </BreadcrumbSeparator>
-      </template>
-    </BreadcrumbList>
-  </Breadcrumb>
+  <nav class="flex items-center gap-2 text-sm text-muted-foreground">
+    <template v-for="(link, index) in links" :key="index">
+      <span>{{ link.title }}</span>
+    </template>
+  </nav>
 </template>
