@@ -1,5 +1,5 @@
 import type { NavMenu, NavMenuItems } from '@/types/nav';
-import { Home, PlusIcon, CalendarClock } from 'lucide-vue-next';
+import { Home, PlusIcon, CalendarClock, Image } from 'lucide-vue-next';
 
 export const navMenu: NavMenu[] = [
   {
@@ -19,6 +19,11 @@ export const navMenu: NavMenu[] = [
         title: 'Cron Job',
         icon: CalendarClock,
         link: '/cron-job',
+      },
+      {
+        title: 'Custom Avatar',
+        icon: Image,
+        link: '/custom-avatar',
       },
     ],
   },

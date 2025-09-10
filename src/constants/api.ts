@@ -25,3 +25,8 @@ export const PAYMENT_API = {
 export const CRONJOB_API = {
   CRONJOB_TRIGGER: '/api/cron/trigger',
 };
+
+export const USER_API = {
+  HEYGEN_UPLOAD_AVATAR: '/heygen/upload-avatar',
+  HEYGEN_MY_CUSTOM_AVATARS: '/heygen/my-custom-avatars',
+};
