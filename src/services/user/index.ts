@@ -10,6 +10,9 @@ const UserServices = {
   heygenMyCustomAvatars: () => {
     return apiServices.get(USER_API.HEYGEN_MY_CUSTOM_AVATARS);
   },
+  authBalance: () => {
+    return apiServices.get(USER_API.AUTH_BALANCE);
+  },
 };
 
 export default UserServices;

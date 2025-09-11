@@ -12,7 +12,7 @@ import AppSidebar from '@/components/sidebar/AppSidebar.vue';
     <SidebarInset>
       <Header />
 
-      <div class="min-w-0 w-full flex-1 overflow-x-auto p-4 lg:p-6">
+      <div class="min-w-0 w-full flex-1 overflow-x-auto p-4 lg:p-6 bg-orange-100/50">
         <RouterView />
       </div>
     </SidebarInset>

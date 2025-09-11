@@ -14,7 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
 const userStore = useUserStore();
-const avatarCustom = ref<any>(null);
 const showModalUpload = ref(false);
 const avatarName = ref('');
 const avatarFile = ref<File | null>(null);
@@ -43,14 +42,14 @@ const handleUpload = async () => {
     avatarName.value = '';
     avatarFile.value = null;
 
-    avatarCustom.value = await userStore.fetchMyCustomAvatars();
+    await userStore.fetchMyCustomAvatars();
   } catch (error) {
     console.error('Upload failed', error);
   }
 };
 
 onMounted(async () => {
-  avatarCustom.value = await userStore.fetchMyCustomAvatars();
+  await userStore.fetchMyCustomAvatars();
 });
 </script>
 
@@ -63,7 +62,7 @@ onMounted(async () => {
     </div>
 
     <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      <Card class="w-[350px]" v-for="avatar in avatarCustom?.data.custom_avatars" :key="avatar.id">
+      <Card class="w-[350px]" v-for="avatar in userStore.avatarCustoms" :key="avatar.id">
         <CardHeader>
           <CardTitle>{{ avatar.avatar_name }}</CardTitle>
         </CardHeader>

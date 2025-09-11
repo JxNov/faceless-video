@@ -9,7 +9,7 @@ export const GENERATE_API = {
   HEYGEN_VOICES: '/heygen/voices',
 
   HEYGEN_GET_HEADLINE: '/heygen/get-headline',
-  HEYGEN_GENERATE_ARTICLE_ENHANCED: '/heygen/generate-article-enhanced',
+  HEYGEN_GENERATE_ARTICLE_ENHANCED: '/heygen/generate-english-article',
   HEYGEN_GENERATE_VIDEO: '/heygen/generate-video',
 
   HEYGEN_GENERATE_VIDEO_CUSTOM: '/heygen/generate-video-custom',
@@ -31,4 +31,6 @@ export const CRONJOB_API = {
 export const USER_API = {
   HEYGEN_UPLOAD_AVATAR: '/heygen/upload-avatar',
   HEYGEN_MY_CUSTOM_AVATARS: '/heygen/my-custom-avatars',
+
+  AUTH_BALANCE: '/api/auth/balance',
 };
