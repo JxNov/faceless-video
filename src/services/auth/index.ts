@@ -9,6 +9,9 @@ const AuthServices = {
   logout(options?: ValueOptions) {
     return apiServices.post(AUTH_API.LOGOUT, options?.params);
   },
+  register(options?: ValueOptions) {
+    return apiServices.post(AUTH_API.REGISTER, options?.params);
+  },
 };
 
 export default AuthServices;

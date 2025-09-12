@@ -48,6 +48,37 @@ export const useAuthStore = defineStore('auth', () => {
     router.push(ROUTES.AUTH_LOGIN);
   };
 
+  const register = async (payload: {
+    username: string;
+    email: string;
+    password: string;
+    role?: string;
+  }) => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const response = await AuthServices.register({
+        params: {
+          username: payload.username,
+          email: payload.email,
+          password: payload.password,
+          role: payload.role ?? 'USER',
+        },
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message || 'Đăng ký thành công! Vui lòng đăng nhập.');
+        router.push(ROUTES.AUTH_LOGIN);
+      }
+    } catch (err: any) {
+      error.value = err.response.data.error.message;
+      toast.error(err.response.data.error.message || 'Đăng ký thất bại!');
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     loading,
     error,
@@ -55,5 +86,6 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     login,
     logout,
+    register,
   };
 });
